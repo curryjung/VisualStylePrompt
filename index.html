@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Visual Style Prompting</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://curryjung.github.io/visual-style-prompt-project-page/">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://kwonminki.github.io/Asyrp/">
+            Asyrp
+          </a>
+          <a class="navbar-item" href="https://curryjung.github.io/InjectFusion/">
+            InjectFusion
+          </a>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Visual Style Prompting with Swapping Self-Attention</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://drive.google.com/file/d/19I3s70cfQ45dC_JiD2kmkv0MZ8yu4kBZ/view">Jaeseok Jeong<sup>*</sup></a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://github.com/taki0112">Junho Kim<sup>*</sup></a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.linkedin.com/in/yunjey-choi-27b347175/?originalSubdomain=kr">Yunjey Choi</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.linkedin.com/in/gayoung-lee-0824548a/?originalSubdomain=kr">Gayoung Lee</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://vilab.yonsei.ac.kr/member">Youngjung Uh</a><sup>1</sup>,
+            </span>
+
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Yonsei University,</span>
+            <span class="author-block"><sup>2</sup>Naver Cloud</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <!-- <span class="link-block">
+                <a href="https://arxiv.org/pdf/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>-->
+
+              <span class="link-block"> 
+                <a href="https://arxiv.org/abs/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/google/nerfies"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code is comming soon</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+  
+      <!-- method. -->
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Teasor</h2>
+          <p>
+            We tackle <b>Visual Style Prompting</b>, reflecting style elements from reference images and contents from text prompts, in a
+training-free manner.
+          </p>
+            <img src = "./static/images/teasor_v2.jpeg" alt="vs_competitor_frog" class="vs_competitor_frog"/>
+        </div>
+      </div>
+      <!--/ Visual Effects. -->
+
+      <!-- frog. -->
+      <div class="column">
+        <h2 class="title is-3">Comparison</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <p>
+
+              <b>Qualitative comparison with varying styles and fixed
+                content. </b>Visual style prompting reflects style elements from various reference images to render “frog” while others struggle.
+            </p>
+            <img src = "./static/images/vs_competitor_frog.jpeg" alt="vs_competitor_frog" class="vs_competitor_frog"/>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+
+
+          <p>
+            In the evolving domain of text-to-image generation, diffusion models have emerged as powerful tools in content creation.
+Despite their remarkable capability, existing models still face challenges in achieving controlled generation with a consistent style, 
+requiring costly fine-tuning or often inadequately transferring the visual elements due to content leakage. 
+</p>
+<p>
+To address these challenges, we propose a novel approach, visual style prompting, 
+to produce a diverse range of images while maintaining specific style elements and nuances. 
+During the denoising process, we keep the query from original features while swapping the key and value
+ with those from reference features in the late self-attention layers. 
+ This approach allows for the visual style prompting without any fine-tuning, 
+ ensuring that generated images maintain a faithful style. 
+ Through extensive evaluation across various styles and text prompts, 
+ our method demonstrates superiority over existing approaches, 
+ best reflecting the style of the references and ensuring 
+ that resulting images match the text prompts most accurately.
+          </p>
+
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <section class="hero teaser">
+
+  </section>
+
+  <section>
+    <div class="container is-max-desktop">
+
+      <img src = "./static/images/vs_competitor_v2.jpeg" alt="vs_competitor_v2_1" class="vs_competitor_v2_1"/>
+
+
+          <h2 class="subtitle has-text-centered">
+            <b>Visual Style Prompting</b> successfully reflects style elements in
+            reference images while not causing content leakage from the reference images.
+          </h2>
+        </div>
+      </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+
+  
+      <div class="columns is-centered">
+  
+        <!-- method. -->
+        <div class="column">
+          <div class="content">
+            <h2 class="title is-3">Method overview</h2>
+            <p>
+              <b>Overview of swapping self-attention for visual style
+                prompting.</b> We swap the key and value features of self-attention
+              block in an original denoising process with the ones from a ref-
+              erence denoising process. This procedure is repeated for T steps,
+              resulting in the original content rendered with the style elements
+              from the reference image
+            </p>
+
+
+              <img src = "./static/images/method3.jpg" alt="vs_competitor_frog" class="vs_competitor_frog"/>
+          </div>
+        </div>
+        <!--/ method. -->
+  
+
+        
+        <!-- frog. -->
+        <div class="column">
+          <h2 class="title is-3">Diversity</h2>
+          <div class="columns is-centered">
+            <div class="column content">
+              <p>
+                Competitors
+                face challenges in generating images with diverse layouts and
+                compositions due to content leakage from the reference.
+              </p>
+              <img src = "./static/images/diversity_qual_vs_competitors_v1.jpeg" alt="vs_competitor_frog" class="vs_competitor_frog"/>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+      <!--/ frog. -->
+
+      <div class="columns is-centered">
+  
+        <!-- method. -->
+        <!-- <div class="column">
+          <div class="content">
+            <h2 class="title is-3">Visual Effects</h2>
+            <p>
+              Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
+              would be impossible without nerfies since it would require going through a wall.
+            </p>
+              <img src = "./static/images/vs_competitor_frog.jpeg" alt="vs_competitor_frog" class="vs_competitor_frog"/>
+          </div>
+        </div> -->
+        <!--/ Visual Effects. -->
+  
+        <!-- frog. -->
+        <div class="column">
+          <h2 class="title is-3">Compatibility</h2>
+          <div class="columns is-centered">
+            <div class="column content">
+              <p>
+                <b>Visual style prompting with existing techniques.</b> Our
+                method is compatible with ControlNet and Dreambooth-LoRA.
+              </p>
+              <img src = "./static/images/controlnet_db_lora_v2.jpeg" alt="vs_competitor_frog" class="vs_competitor_frog"/>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+
+
+      <!-- more diversity results-->
+
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+          <img src="./static/images/more_diversity_results.jpeg"
+               alt="more diversity results."
+               class="more_diversity_results"/>
+          <!-- <video id="teaser" autoplay muted loop playsinline height="100%">
+            <source src="./static/videos/teaser.mp4"
+                    type="video/mp4">
+          </video> -->
+          <h2 class="subtitle has-text-centered">
+            Visual Style Prompt enables faithfully reflecting the style of the reference and the object from the given text with T2I diffusion models.
+    
+          </h2>
+        </div>
+      </div>
+
+      <!--/ more diversity results-->
+
+    </section>
+
+
+
+
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    To be updated.
+    <!-- <pre><code>@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {Nerfies: Deformable Neural Radiance Fields},
+  journal   = {ICCV},
+  year      = {2021},
+}</code></pre> -->
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Thanks to proeject page template from <a href="https://github.com/nerfies/nerfies.github.io">Nerfices</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
